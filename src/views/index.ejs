@@ -1,0 +1,16 @@
+<%- include('partials/header'); %>
+<div class="container-content">
+  <div class="title">
+    <h1>The Pickle</h1>
+    <h2>Pickleball League</h2>
+    <p>Starting July 1st, 2023</p>
+    <h1>Pickleball Registrar</h1>
+  </div>
+  <% if (foundPickles.length === 0) { %>
+  <h3>Please <a href="/register">sign</a> up.</h3>
+  <% } else { %> <% foundPickles.map(pickle => { %>
+  <p><%= pickle.name %></p>
+  <hr />
+  <% }) %> <% } %>
+</div>
+<%- include('partials/footer'); %>
