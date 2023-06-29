@@ -12,10 +12,16 @@ app.set("views", "./src/views");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+require("dotenv").config();
+
+let password = process.env.password;
+
 // Connect DB
 mongoose
   .connect(
-    "mongodb+srv://mdh0588:FD4jQmhtrsEzzgtp@cluster0.4lg1ztz.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://mdh0588:" +
+      password +
+      "@cluster0.4lg1ztz.mongodb.net/?retryWrites=true&w=majority"
   )
   .then(() => console.log("Connected!"));
 
@@ -37,8 +43,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register", { page_name: "register"});
-})
+  res.render("register", { page_name: "register" });
+});
 
 app.post("/register", (req, res) => {
   const name = req.body.name;
@@ -55,13 +61,26 @@ app.post("/register", (req, res) => {
 
   user
     .save()
-    .then( (doc) => {
+    .then((doc) => {
       console.log(doc._id.toString());
     })
-    .catch( (error) => {
+    .catch((error) => {
       console.log(error);
     });
-  res.redirect("/")
+  res.redirect("/");
+});
+
+app.post("/delete", (req, res) => {
+  let _id = req.body.id;
+  deletePickle(_id).then((results) => {
+    if (results) {
+      console.log("delete successful");
+      res.redirect("/");
+    } else {
+      console.log("err")
+    }
+    
+  });
 });
 
 app.listen(PORT, () => {
@@ -71,4 +90,9 @@ app.listen(PORT, () => {
 async function getPickles() {
   const Pickles = await Pickle.find({});
   return Pickles;
+}
+
+async function deletePickle(_id) {
+  const results = Pickle.findOneAndRemove({ _id: _id });
+  return results;
 }

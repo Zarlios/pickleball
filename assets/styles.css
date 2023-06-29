@@ -82,12 +82,14 @@ body {
   align-items: center;
 }
 
-.container-content h1 {
+.container-content .text {
   display: flex;
-  padding-top: 20px;
+  flex-direction: row;
+  justify-content:space-between;
+  padding-top: 1em;
 }
 
-.container-content img {
+.container-content h1 {
   display: flex;
   padding-top: 20px;
 }
