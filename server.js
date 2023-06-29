@@ -46,6 +46,22 @@ app.get("/register", (req, res) => {
   res.render("register", { page_name: "register" });
 });
 
+app.get("/user/:id", (req, res) => {
+  const id = req.params.id;
+
+  console.log(id);
+  getPickle(id).then((foundPickle) => {
+    res.render("pickle", { foundPickle, page_name: "index" });
+  });
+});
+
+app.get("/user/edit/:id", (req, res) => {
+  const id = req.params.id;
+  getPickle(id).then((foundPickle) => {
+    res.render("edit", { foundPickle, page_name: "index" });
+  });
+});
+
 app.post("/register", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
@@ -77,11 +93,32 @@ app.post("/delete", (req, res) => {
       console.log("delete successful");
       res.redirect("/");
     } else {
-      console.log("err")
+      console.log("err");
     }
-    
   });
 });
+
+app.post('/user/edit', (req, res) => {
+  const id = req.body.id;
+  const name = req.body.name;
+  const email = req.body.email;
+  const phoneNumber = req.body.phoneNumber;
+  const city = req.body.city;
+
+  Pickle.findById(id).then((pickle) => {
+    pickle.name = name;
+    pickle.email = email;
+    pickle.phoneNumber = phoneNumber;
+    pickle.city = city;
+    pickle.save().then(() => {
+      console.log("Updated")
+      res.redirect(`/user/${id}`);
+    })
+  })
+
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
@@ -95,4 +132,9 @@ async function getPickles() {
 async function deletePickle(_id) {
   const results = Pickle.findOneAndRemove({ _id: _id });
   return results;
+}
+
+async function getPickle(_id) {
+  const Pickles = await Pickle.find({ _id: _id });
+  return Pickles;
 }

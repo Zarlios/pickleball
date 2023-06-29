@@ -69,11 +69,15 @@ body {
 }
 
 #submit {
-  width: 10em;
-  height: 3em;
+  display: flex;
+  width: 10rem;
+  height: 3rem;
   background-color: #04AA6D;
   border: 0px;
-  color:#f2f2f2
+  text-decoration: none;
+  color:white;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-content .title {
@@ -85,8 +89,32 @@ body {
 .container-content .text {
   display: flex;
   flex-direction: row;
-  justify-content:space-between;
+  justify-content: space-between;
   padding-top: 1em;
+}
+
+.container-content .user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-content #user {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
+  gap: 1em;
+  align-items: center;
+}
+
+.container-content #buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
+  gap: 1em;
+  align-items: center;
+  padding-top: 20px;
 }
 
 .container-content h1 {

@@ -2,22 +2,25 @@
 <div class="container-content">
   <h1>Are you a pickle?</h1>
   <div class="page">
-    <form method="post" action="/register" class="page">
+    <% foundPickle.map(pickle => { %>
+    <form method="post" action="/user/edit" class="page">
+      <input type="hidden" name="id" value="<%= pickle._id %>" />
       <label for="name">Name:</label>
-      <input placeholder="Name" name="name" type="text" required />
+      <input value="<%= pickle.name %>" name="name" type="text" required />
       <label for="email">Email:</label>
-      <input placeholder="Email" name="email" type="text" required />
+      <input value="<%= pickle.email %>" name="email" type="text" required />
       <label for="phoneNumber">Phone Number:</label>
       <input
-        placeholder="Phone Number"
+        value="<%= pickle.phoneNumber %>"
         name="phoneNumber"
         type="text"
         required
       />
       <label for="city">City:</label>
-      <input placeholder="City" name="city" type="text" />
+      <input value="<%= pickle.city %>" name="city" type="text" />
       <button type="submit" id="submit">SUBMIT</button>
     </form>
+    <% }) %>
   </div>
 </div>
 <%- include('partials/footer'); %>

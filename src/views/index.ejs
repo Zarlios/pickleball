@@ -12,11 +12,7 @@
   <h3>Please <a href="/register">sign</a> up.</h3>
   <% } else { %> <% foundPickles.map(pickle => { %>
   <div class="text">
-    <p><%= pickle.name %></p>
-    <form action="/delete" method="POST" id="form">
-      <input type="hidden" name="id" value="<%= pickle._id %>" />
-      <button type="submit" id="submit">Delete</button>
-    </form>
+    <p><a href="/user/<%= pickle._id %>"><%= pickle.name %></a></p>
   </div>
   <% }) %> <% } %>
 </div>
