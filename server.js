@@ -30,6 +30,7 @@ const PickleSchema = new mongoose.Schema({
   email: String,
   phoneNumber: String,
   city: String,
+  skillLevel: String,
 });
 
 const Pickle = mongoose.model("pickleball_registrar", PickleSchema);
@@ -67,12 +68,14 @@ app.post("/register", (req, res) => {
   const email = req.body.email;
   const phoneNumber = req.body.phoneNumber;
   const city = req.body.city;
+  const skillLevel = req.body.skillLevel;
 
   const user = new Pickle({
     name,
     email,
     phoneNumber,
     city,
+    skillLevel,
   });
 
   user
@@ -107,6 +110,7 @@ app.post('/user/edit', (req, res) => {
     pickle.email = req.body.email;
     pickle.phoneNumber = req.body.phoneNumber;
     pickle.city = req.body.city;
+    pickle.skillLevel = req.body.skillLevel;
     pickle.save().then(() => {
       console.log("Updated")
       res.redirect(`/user/${id}`);

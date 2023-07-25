@@ -13,6 +13,7 @@
   <% } else { %> <% foundPickles.map(pickle => { %>
   <div class="text">
     <p><a href="/user/<%= pickle._id %>"><%= pickle.name %></a></p>
+    <p><%= pickle.skillLevel %></p>
   </div>
   <% }) %> <% } %>
 </div>
