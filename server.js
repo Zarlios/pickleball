@@ -79,11 +79,12 @@ app.post("/register", (req, res) => {
     .save()
     .then((doc) => {
       console.log(doc._id.toString());
+      res.redirect("/user/" + doc._id);
     })
     .catch((error) => {
       console.log(error);
     });
-  res.redirect("/");
+  
 });
 
 app.post("/delete", (req, res) => {
@@ -100,16 +101,12 @@ app.post("/delete", (req, res) => {
 
 app.post('/user/edit', (req, res) => {
   const id = req.body.id;
-  const name = req.body.name;
-  const email = req.body.email;
-  const phoneNumber = req.body.phoneNumber;
-  const city = req.body.city;
 
   Pickle.findById(id).then((pickle) => {
-    pickle.name = name;
-    pickle.email = email;
-    pickle.phoneNumber = phoneNumber;
-    pickle.city = city;
+    pickle.name = req.body.name;
+    pickle.email = req.body.email;
+    pickle.phoneNumber = req.body.phoneNumber;
+    pickle.city = req.body.city;
     pickle.save().then(() => {
       console.log("Updated")
       res.redirect(`/user/${id}`);
